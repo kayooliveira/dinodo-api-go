@@ -20,14 +20,14 @@ func initMysql() (*gorm.DB, error) {
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		fmt.Printf("MySQL connection error: %v", err)
+		logger.Errf("MySQL connection error: %v", err)
 		return nil, err
 	}
 
 	err = db.AutoMigrate(&entity.Task{})
 
 	if err != nil {
-		fmt.Printf("MySQL automigration error: %v", err)
+		logger.Errf("MySQL automigration error: %v", err)
 		return nil, err
 	}
 

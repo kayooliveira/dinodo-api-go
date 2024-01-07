@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-
 	"gorm.io/gorm"
 )
 
@@ -18,7 +16,7 @@ func InitConfig() error {
 	db, err = initMysql()
 
 	if err != nil {
-		fmt.Println("Error initializing MySQL")
+		logger.Err("Error initializing MySQL")
 		return err
 	}
 
