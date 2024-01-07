@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kayooliveira/dinodo-api-go/internal/entity"
+	"github.com/kayooliveira/dinodo-api-go/internal/domain/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

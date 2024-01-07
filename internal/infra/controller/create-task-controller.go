@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/kayooliveira/dinodo-api-go/internal/entity"
+	"github.com/kayooliveira/dinodo-api-go/internal/domain/entity"
 	"github.com/kayooliveira/dinodo-api-go/internal/infra/repository"
 )
 
