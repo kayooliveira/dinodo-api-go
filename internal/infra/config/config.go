@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	db *gorm.DB
+	db     *gorm.DB
+	logger *Logger
 )
 
 func InitConfig() error {
@@ -26,4 +27,9 @@ func InitConfig() error {
 
 func GetMysql() *gorm.DB {
 	return db
+}
+
+func GetLogger(prefix string) *Logger {
+	logger = NewLogger(prefix)
+	return logger
 }
