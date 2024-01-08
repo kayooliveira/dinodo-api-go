@@ -4,6 +4,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/kayooliveira/dinodo-api-go/internal/infra/config/color"
 )
 
 type Logger struct {
@@ -19,10 +21,10 @@ func NewLogger(prefix string) *Logger {
 	logger := log.New(writer, prefix, log.Ldate|log.Ltime)
 
 	return &Logger{
-		debug:   log.New(writer, "DEBUG: ", logger.Flags()),
-		info:    log.New(writer, "INFO: ", logger.Flags()),
-		warning: log.New(writer, "WARNING: ", logger.Flags()),
-		err:     log.New(writer, "ERROR: ", logger.Flags()),
+		debug:   log.New(writer, color.GreenString("[DEBUG]: "), logger.Flags()),
+		info:    log.New(writer, color.BlueString("[INFO]: "), logger.Flags()),
+		warning: log.New(writer, color.YellowString("[WARNING]: "), logger.Flags()),
+		err:     log.New(writer, color.RedString("[ERROR]: "), logger.Flags()),
 		writer:  writer,
 	}
 }
