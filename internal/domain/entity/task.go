@@ -21,7 +21,7 @@ type TaskRepository interface {
 	Update(task *Task) error
 	Get(id string) (*Task, error)
 	GetAll() ([]*Task, error)
-	Delete(id string) error
+	Delete(task *Task) error
 }
 
 func (t *Task) BeforeCreate(tx *gorm.DB) (err error) {
