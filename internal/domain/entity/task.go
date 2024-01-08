@@ -19,9 +19,9 @@ type Task struct {
 type TaskRepository interface {
 	Create(task *Task) error
 	Update(task *Task) error
-	Get(id int) (*Task, error)
+	Get(id string) (*Task, error)
 	GetAll() ([]*Task, error)
-	Delete(id int) (bool, error)
+	Delete(id string) error
 }
 
 func (t *Task) BeforeCreate(tx *gorm.DB) (err error) {
