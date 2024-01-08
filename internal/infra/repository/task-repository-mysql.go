@@ -58,15 +58,9 @@ func (r *TaskRepositoryMysql) GetAll() ([]*entity.Task, error) {
 	return tasks, nil
 }
 
-func (r *TaskRepositoryMysql) Delete(id string) error {
-	task := entity.Task{}
+func (r *TaskRepositoryMysql) Delete(task *entity.Task) error {
 
-	result := r.DB.Find(&task, "id = ?", id)
-	if result.Error != nil {
-		return result.Error
-	}
-
-	r.DB.Delete(task)
+	r.DB.Delete(&task)
 
 	return nil
 }
