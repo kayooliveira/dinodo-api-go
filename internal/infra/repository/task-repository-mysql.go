@@ -23,7 +23,11 @@ func (r *TaskRepositoryMysql) Create(task *entity.Task) error {
 }
 
 func (r *TaskRepositoryMysql) Update(task *entity.Task) error {
-	result := r.DB.Save(&task)
+
+	result := r.DB.Model(&task).Updates(map[string]interface{}{
+		"Task":     task.Task,
+		"Finished": task.Finished,
+	})
 
 	if result.Error != nil {
 		return result.Error
@@ -34,7 +38,7 @@ func (r *TaskRepositoryMysql) Update(task *entity.Task) error {
 
 func (r *TaskRepositoryMysql) Get(id string) (*entity.Task, error) {
 	task := entity.Task{}
-	result := r.DB.First(&task, id)
+	result := r.DB.First(&task, "id = ? ", id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -57,7 +61,7 @@ func (r *TaskRepositoryMysql) GetAll() ([]*entity.Task, error) {
 func (r *TaskRepositoryMysql) Delete(id string) error {
 	task := entity.Task{}
 
-	result := r.DB.Find(&task, id)
+	result := r.DB.Find(&task, "id = ?", id)
 	if result.Error != nil {
 		return result.Error
 	}
