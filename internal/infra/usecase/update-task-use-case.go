@@ -45,7 +45,7 @@ func (u *UpdateTaskUseCase) Execute(id string, input UpdateTaskInputDto) (*entit
 		task.Finished = *input.Finished
 	}
 
-	err = u.TaskRepository.Update(id, task)
+	err = u.TaskRepository.Update(task)
 
 	if err != nil {
 		return nil, err
