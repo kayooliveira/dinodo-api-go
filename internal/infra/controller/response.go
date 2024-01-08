@@ -22,3 +22,12 @@ func sendError(ctx *gin.Context, code int, message string) {
 		"errorCode": code,
 	})
 }
+
+func sendCreated(ctx *gin.Context, operation string, data interface{}) {
+	ctx.Header("Content-type", "application/json")
+	ctx.JSON(201, gin.H{
+		"message":   "Created",
+		"operation": operation,
+		"data":      data,
+	})
+}
