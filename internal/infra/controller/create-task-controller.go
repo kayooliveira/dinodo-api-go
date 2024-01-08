@@ -2,35 +2,35 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/kayooliveira/dinodo-api-go/internal/domain/entity"
 	"github.com/kayooliveira/dinodo-api-go/internal/infra/repository"
+	"github.com/kayooliveira/dinodo-api-go/internal/infra/usecase"
 )
-
-type TaskRequestBody struct {
-	Task     string
-	Finished bool
-}
 
 func CreateTaskController(ctx *gin.Context) {
 
-	var taskRequestBody TaskRequestBody
-
-	err := ctx.BindJSON(&taskRequestBody)
+	var input usecase.CreateTaskInputDto
 
 	repository := repository.NewTaskRepositoryMysql(db)
+	usecase := usecase.NewCreateTaskUseCase(repository)
 
-	task := entity.Task{
-		Task:     taskRequestBody.Task,
-		Finished: taskRequestBody.Finished,
-	}
-
-	repository.Create(&task)
+	err := ctx.BindJSON(&input)
 
 	if err != nil {
 		sendError(ctx, 400, "BAD REQUEST")
 		return
 	}
 
-	sendSuccess(ctx, "create-task", task)
+	task, err := usecase.Execute(input)
 
+	if err != nil {
+		sendError(ctx, 400, err.Error())
+		return
+	}
+
+	if task != nil {
+		sendCreated(ctx, "create-task", task)
+		return
+	}
+
+	sendError(ctx, 500, "INTERNAL SERVER ERROR")
 }
