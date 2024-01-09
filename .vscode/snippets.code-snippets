@@ -1,0 +1,10 @@
+{
+	"Json Field on Struct": {
+		"scope": "go",
+		"prefix": "sf",
+		"body": [
+			"${1:arg1} $2    `json:\"${1/(.*)/${1:/downcase}/}\"`"
+		],
+		"description": "Create a new field on a struct with the json convert tag"
+	}
+}
