@@ -24,7 +24,7 @@ func initMysql() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&entity.Task{})
+	err = db.AutoMigrate(&entity.Task{}, &entity.User{})
 
 	if err != nil {
 		logger.Errf("MySQL automigration error: %v", err)

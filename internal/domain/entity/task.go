@@ -11,6 +11,8 @@ type Task struct {
 	ID        uuid.UUID       `json:"id" gorm:"type:char(36);primary_key"`
 	Task      string          `json:"task"`
 	Finished  bool            `json:"finished"`
+	UserID    string          `json:"userId"`
+	User      User            `json:"user"`
 	CreatedAt time.Time       `json:"createdAt"`
 	UpdatedAt *time.Time      `json:"updatedAt"`
 	DeletedAt *gorm.DeletedAt `json:"deletedAt" gorm:"index"`
