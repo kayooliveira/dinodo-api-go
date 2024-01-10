@@ -22,6 +22,7 @@ The application uses a MySQL database to store tasks.
 - **Task Listing**: View all available tasks.
 - **Task Listing By ID**: View task by provided ID.
 - **Delete Tasks**: Remove tasks from the list.
+- **JWT Authentication**: Secure routes with JSON Web Token authentication.
 
 ## Configuration
 
@@ -76,6 +77,18 @@ curl http://localhost:4000/api/v1/tasks/{id}
 curl -X DELETE http://localhost:4000/api/v1/tasks/{id}
 ```
 
+### User Register
+
+```bash
+curl -X POST http://localhost:4000/auth/register -d '{"name": "User Name","email": "user@email.com", "username": "example", "password": "password"}'
+```
+
+### Get User Details
+
+```bash
+curl http://localhost:4000/users/{id} -H "Authorization: Bearer <your_token>"
+```
+
 ## Contributions
 
 Contributions are welcome! Feel free to open issues and pull requests.
@@ -84,3 +97,5 @@ Contributions are welcome! Feel free to open issues and pull requests.
 
 This project is for educational purposes only and is licensed under the MIT License.
 [MIT License](LICENSE).
+
+
