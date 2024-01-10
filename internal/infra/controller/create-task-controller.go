@@ -20,6 +20,17 @@ func CreateTaskController(ctx *gin.Context) {
 		return
 	}
 
+	userId, exists := ctx.Get("userId")
+
+	userIdString, ok := userId.(string)
+
+	if !exists || !ok {
+		sendError(ctx, 500, "Internal server error")
+		return
+	}
+
+	input.UserID = userIdString
+
 	task, err := usecase.Execute(input)
 
 	if err != nil {
