@@ -12,15 +12,15 @@ func initRoutes(router *gin.RouterGroup) {
 	basePath := "/api/v1"
 	v1 := router.Group(basePath)
 
-	v1.POST("/tasks", controller.CreateTaskController) // Create a new task
+	v1.POST("/tasks", middleware.AuthMiddleware, controller.CreateTaskController) // Create a new task
 
-	v1.GET("/tasks/:id", controller.GetOneTaskController) // Get a single task by ID
+	v1.GET("/tasks/:id", middleware.AuthMiddleware, controller.GetOneTaskController) // Get a single task by ID
 
-	v1.GET("/tasks", controller.GetAllTasksController) // List all tasks
+	v1.GET("/tasks", middleware.AuthMiddleware, controller.GetAllTasksController) // List all tasks
 
-	v1.PUT("/tasks/:id", controller.UpdateTaskController) // Update a task by ID
+	v1.PUT("/tasks/:id", middleware.AuthMiddleware, controller.UpdateTaskController) // Update a task by ID
 
-	v1.DELETE("/tasks/:id", controller.DeleteTaskController) // Delete a task
+	v1.DELETE("/tasks/:id", middleware.AuthMiddleware, controller.DeleteTaskController) // Delete a task
 
 	v1.POST("/auth/signin", controller.CreateUserController) // Register a new User
 
