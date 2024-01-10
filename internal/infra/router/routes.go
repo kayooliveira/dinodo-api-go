@@ -22,7 +22,7 @@ func initRoutes(router *gin.RouterGroup) {
 
 	v1.DELETE("/tasks/:id", middleware.AuthMiddleware, controller.DeleteTaskController) // Delete a task
 
-	v1.POST("/auth/signin", controller.CreateUserController) // Register a new User
+	v1.POST("/auth/register", controller.CreateUserController) // Register a new User
 
 	v1.GET("/users/:id", middleware.AuthMiddleware, controller.GetUserByIdController) // Register a new User
 }
