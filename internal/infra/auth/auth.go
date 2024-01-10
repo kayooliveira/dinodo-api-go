@@ -38,7 +38,7 @@ func GenerateUserToken(id string, name string, email string) (string, error) {
 	return signedString, nil
 }
 
-func ParseUserToken(token string) error {
+func ParseUserToken(token string) (*TokenPayload, error) {
 
 	var tokenPayload TokenPayload
 
@@ -47,12 +47,12 @@ func ParseUserToken(token string) error {
 	})
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if !parsed.Valid {
-		return fmt.Errorf("Invalid token")
+		return nil, fmt.Errorf("Invalid token")
 	}
 
-	return nil
+	return &tokenPayload, nil
 }
