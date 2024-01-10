@@ -9,6 +9,7 @@ import (
 )
 
 type CreateTaskInputDto struct {
+	UserID   string `json:"userId"`
 	Task     string `json:"task"`
 	Finished bool   `json:"finished"`
 }
@@ -16,6 +17,7 @@ type CreateTaskInputDto struct {
 type CreateTaskOutputDto struct {
 	ID        uuid.UUID `json:"id"`
 	Task      string    `json:"task"`
+	UserID    string    `json:"userId"`
 	Finished  bool      `json:"finished"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
@@ -41,6 +43,7 @@ func (u *CreateTaskUseCase) Execute(input CreateTaskInputDto) (*entity.Task, err
 	task := entity.Task{
 		Task:     input.Task,
 		Finished: input.Finished || false,
+		UserID:   input.UserID,
 	}
 
 	err := u.TaskRepository.Create(&task)
