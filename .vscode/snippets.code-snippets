@@ -3,7 +3,7 @@
 		"scope": "go",
 		"prefix": "sf",
 		"body": [
-			"${1:arg1} $2    `json:\"${1/(.*)/${1:/downcase}/}\"`"
+			"${1:Field} $2 `json:\"${1/(.)([^ ]*)/${1:/downcase}$2/}\"`"
 		],
 		"description": "Create a new field on a struct with the json convert tag"
 	}
