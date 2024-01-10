@@ -21,9 +21,21 @@ func AuthMiddleware(ctx *gin.Context) {
 		return
 	}
 
-	token := strings.Split(authHeader, "Bearer ")[1]
+	bearerToken := strings.Split(authHeader, "Bearer ")
 
-	if token == "" {
+	if len(bearerToken) < 2 {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error":     "Unauthorized",
+			"errorCode": http.StatusUnauthorized,
+			"message":   "Please provide a token in format: Bearer token",
+		})
+		ctx.Abort()
+		return
+	}
+
+	jwtToken := bearerToken[1]
+
+	if jwtToken == "" {
 		ctx.JSON(http.StatusUnauthorized, gin.H{
 			"error":     "Unauthorized",
 			"errorCode": http.StatusUnauthorized,
@@ -33,7 +45,7 @@ func AuthMiddleware(ctx *gin.Context) {
 		return
 	}
 
-	err := auth.ParseUserToken(token)
+	parsed, err := auth.ParseUserToken(jwtToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{
@@ -44,6 +56,6 @@ func AuthMiddleware(ctx *gin.Context) {
 
 		ctx.Abort()
 	}
-
+	ctx.Set("userId", parsed.ID)
 	ctx.Next()
 }
